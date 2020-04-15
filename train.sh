@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-python run_classifier.py \
-  --data_dir=data \
+python ./tf1_bert/run_classifier.py \
+  --data_dir=./tf1_bert/data \
   --task_name=sim \
-  --vocab_file=chinese_L-12_H-768_A-12/vocab.txt \
-  --bert_config_file=chinese_L-12_H-768_A-12/bert_config.json \
-  --output_dir=sim_model \
+  --vocab_file=./tf1_bert/chinese_L-12_H-768_A-12/vocab.txt \
+  --bert_config_file=./tf1_bert/chinese_L-12_H-768_A-12/bert_config.json \
+  --output_dir=./tf1_bert/sim_model \
   --do_train=true \
   --do_eval=true \
-  --init_checkpoint=chinese_L-12_H-768_A-12/bert_model.ckpt \
-  --max_seq_length=64 \
-  --train_batch_size=16 \
-  --learning_rate=5e-5 \
-  --num_train_epochs=3.0
+  --init_checkpoint=./tf1_bert/chinese_L-12_H-768_A-12/bert_model.ckpt \
+  --max_seq_length=128 \
+  --train_batch_size=32 \
+  --learning_rate=4e-5 \
+  --num_train_epochs=2.0
