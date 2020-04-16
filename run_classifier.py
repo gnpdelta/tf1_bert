@@ -728,26 +728,24 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
                 accuracy = tf.metrics.accuracy(
                     labels=label_ids, predictions=predictions, weights=is_real_example)
                 loss = tf.metrics.mean(values=per_example_loss, weights=is_real_example)
-				
-				## 补充代码
-				auc = tf.metrics.auc(labels=label_ids, predictions=predictions, weights=is_real_example)
-				precision = tf.metrics.precision(labels=label_ids, predictions=predictions, weights=is_real_example)
-				recall = tf.metrics.recall(labels=label_ids, predictions=predictions, weights=is_real_example)
-				f1_score = (2 * precision * recall) / (precision + recall)
+                ## 补充代码
+                ## auc = tf.metrics.auc(labels=label_ids, predictions=predictions, weights=is_real_example)
+                precision = tf.metrics.precision(labels=label_ids, predictions=predictions, weights=is_real_example)
+                recall = tf.metrics.recall(labels=label_ids, predictions=predictions, weights=is_real_example)
+                ## f1_score = (2 * precision * recall) / (precision + recall)
 				# #
 				
 				
                 return {
                     "eval_accuracy": accuracy,
                     "eval_loss": loss,
-					
-					## 补充代码
-					"eval_auc":auc,
-					"eval_precision": precision, 
-					"eval_recall": recall, 
-					"eval_f1score": f1_score,
-					# #
-                }
+                    ## 补充代码
+                    ## "eval_auc":auc,
+                    "eval_precision": precision, 
+                    "eval_recall": recall, 
+                    ## "eval_f1score": f1_score,
+                    # #
+                    }
 
             eval_metrics = (metric_fn,
                             [per_example_loss, label_ids, logits, is_real_example])
@@ -936,9 +934,9 @@ def main(_):
             seq_length=FLAGS.max_seq_length,
             is_training=True,
             drop_remainder=True)
-		## 补充代码
-		tensors_to_log = {'train loss': 'loss/Mean:0'}
-		logging_hook = tf.train.LoggingTensorHook(tensors=tensors_to_log, every_n_iter=100)
+        ## 补充代码： 在训练过程中输出loss日志
+        tensors_to_log = {'train loss': 'loss/Mean:0'}
+        logging_hook = tf.train.LoggingTensorHook(tensors=tensors_to_log, every_n_iter=100)
 		# #
         estimator.train(input_fn=train_input_fn, max_steps=num_train_steps)
 
